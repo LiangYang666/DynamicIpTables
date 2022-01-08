@@ -52,7 +52,7 @@ rules:
 `vi /etc/systemd/system/dynamiciptables.service`，内容如下
 ```bash
 [Unit]
-Description=frps daemon
+Description=dynamic ip tables daemon
 After=syslog.target  network.target
 Wants=network.target
 
