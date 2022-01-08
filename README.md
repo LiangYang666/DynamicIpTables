@@ -1,12 +1,13 @@
 # DynamicIpTables
 设置动态防火墙，用于抵御国外的IP攻击，例如腾讯云服务器使用时经常遭到国外IP攻击,lastb可查看到很多登陆失败的境外ip
+
 原理： 监控`/var/log/secure`文件，记录每个ip失败的次数和时间，符合设置规则的加入至防火墙（iptables）中
 
 TODO 程序整理
 
 ## 1. 使用
 ### 1.1 下载
-在release中下载，内含可执行文件`DynamicIpTables`和`config.yaml`
+在release中下载`DynamicIpTables.tar`，内含可执行文件`DynamicIpTables`和`config.yaml`
 ### 1.2 运行
 执行 `nohup ./DynamicIpTables -c config.yaml &`就运行了
 执行 `tail -f dynamic_log.txt` 可实时查看日志
@@ -72,4 +73,5 @@ WantedBy=multi-user.target
 ## 3. 如果使用自己的服务器编译
 `pyinstaller -F DynamicIpTables.py`
 将会生成一个build和一个dist的文件夹
+
 生成的可执行为文件在dist中
