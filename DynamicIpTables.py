@@ -79,12 +79,12 @@ def add_to_iptables(ip, port, info):
         command = f"iptables -I INPUT -s {ip} -j DROP"
     else:
         command = f"iptables -I INPUT -s {ip} -p tcp --dport 22 -j DROP"
-    logging.info("[run]\t run command "+command)
+    print("[run]\t run command "+command)
     os.system(command)
-    logging.info("[run]\t successful ")
+    print("[run]\t successful ")
     block_ips.append(ip)
     del faild_ips_dict[ip]
-    logging.info(f"[block]\tBlock the ip {ip} [{info['country']}, {info['regionName']}] to iptables {port}")
+    logging.info(f"[block] Block the ip {ip}[{info['country']}, {info['regionName']}] to iptables {port}")
 
 def handle_new_line(line: str):
     str1 = 'Failed password for'
@@ -97,7 +97,7 @@ def handle_new_line(line: str):
         strings = line.split("from")[1]  
         ip =re.search(r'((2[0-4]\d|25[0-5]|[01]{0,1}\d{0,1}\d)\.){3}(2[0-4]\d|25[0-5]|[01]{0,1}\d{0,1}\d)', strings).group()
         _, info = get_ip_info(ip)
-        logging.info(f"[allow]\t Get a successful connection of {user} from {info['country']},{info['regionName']}[{ip}]")
+        logging.info(f"[allow] Get a successful connection of {user} from {ip}[{info['country']}, {info['regionName']}]")
     else:
         print("Not handle :\t"+line)
 
