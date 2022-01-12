@@ -16,7 +16,7 @@ TODO 程序整理
 # 系统安全日志文件
 secure_log: /var/log/secure
 # 打印日志
-log_file: ./dynamic_log.txt
+log_file: /var/log/dynamiciptables.log
 
 # ip白名单 强烈建议配置，因为如果不配置，若别人和你在同一公网ip下，他多次尝试登陆并失败，会使得ip被封，使得你自己也无法访问
 allow_ip:
@@ -49,7 +49,7 @@ rules:
 ## 2 创建service
 可以`nohup ./DynamicIpTables -c config.yaml &`启动，也可以创建service
 ### 2.1 创建
-`vi /etc/systemd/system/dynamiciptables.service`，内容如下
+`vi /etc/systemd/system/dynamiciptables.service`，内容如下,其中执行路径改成自己的
 ```bash
 [Unit]
 Description=dynamic ip tables daemon
@@ -58,7 +58,7 @@ Wants=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/DynamicIpTables/DynamicIpTables -c /usr/local/DynamicIpTables/config.yml
+ExecStart=/path/to/DynamicIpTables -c /path/to/config.yml
 Restart= always
 RestartSec=1min
 
@@ -75,3 +75,4 @@ WantedBy=multi-user.target
 将会生成一个build和一个dist的文件夹
 
 生成的可执行为文件在dist中
+ps:运行时用ps查看进程会发现有两个进程，原因是当指明-F参数构建时，程序被解压缩到一个临时目录并从那里运行。第二个进程是实际的程序，而第一个进程是在程序退出或崩溃后清理临时目录。因此, 去除 -F参数时, 就可以显示一个进程, 但是如果只有一个进程，那么在崩溃的情况下就无法清理临时目录
