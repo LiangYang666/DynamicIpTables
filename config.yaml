@@ -2,7 +2,7 @@
 # 系统安全日志文件
 secure_log: /var/log/secure
 # 打印日志
-log_file: ./dynamic_log.txt
+log_file: /var/log/dynamiciptables.log
 
 # ip白名单 强烈建议配置，因为如果不配置，若别人和你在同一公网ip下，他多次尝试登陆并失败，会使得ip被封，使得你自己也无法访问
 allow_ip:
