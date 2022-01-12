@@ -16,7 +16,7 @@ pos = 1     # 读取文件位置,起始位置设为1 因为第secure第1行为�
 block_ips = []
 faild_ips_dict = {}
 
-pattern_str = ['Failed password for root from 125.123.88.89 port 59120 ssh2',
+pattern_str = ['Failed password for root from 125.123.88.221 port 59120 ssh2',
                 'Failed password for invalid user admin from 218.255.12.54 port 51541 ssh2']
 
 def get_ip_info(ip='202.197.74.82'):
@@ -90,12 +90,12 @@ def handle_new_line(line: str):
     str1 = 'Failed password for'
     if str1 in line:
         strings = line.split("from")[1]
-        ip =re.search(r'(([01]{0,1}\d{0,1}\d|2[0-4]\d|25[0-5])\.){3}([01]{0,1}\d{0,1}\d|2[0-4]\d|25[0-5])', strings).group()
+        ip =re.search(r'((2[0-4]\d|25[0-5]|[01]{0,1}\d{0,1}\d)\.){3}(2[0-4]\d|25[0-5]|[01]{0,1}\d{0,1}\d)', strings).group()
         handle_ip(ip)
     elif "Accepted" in line:
         user = line.split('for')[1].split('from')[0].strip()      
         strings = line.split("from")[1]  
-        ip =re.search(r'(([01]{0,1}\d{0,1}\d|2[0-4]\d|25[0-5])\.){3}([01]{0,1}\d{0,1}\d|2[0-4]\d|25[0-5])', strings).group()
+        ip =re.search(r'((2[0-4]\d|25[0-5]|[01]{0,1}\d{0,1}\d)\.){3}(2[0-4]\d|25[0-5]|[01]{0,1}\d{0,1}\d)', strings).group()
         _, info = get_ip_info(ip)
         logging.info(f"[allow]\t Get a successful connection of {user} from {info['country']},{info['regionName']}[{ip}]")
     else:
