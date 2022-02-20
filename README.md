@@ -9,6 +9,7 @@ TODO 程序整理
 ### 1.1 下载
 在release中下载`DynamicIpTables.tar`，内含可执行文件`DynamicIpTables`和`config.yaml`
 ### 1.2 运行
+以下执行都是在CentOS 7.6的操作系统下执行的，其它操作系统可能需要自己重新编译为适合自己系统的`DynamicIpTables`，参考第3点，另仅适合使用iptables作为防火墙表的系统
 执行 `nohup ./DynamicIpTables -c config.yaml &`就运行了
 执行 `tail -f dynamic_log.txt` 可实时查看日志
 ### 1.3有关配置
